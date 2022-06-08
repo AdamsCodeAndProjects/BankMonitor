@@ -49,6 +49,10 @@ extension LoginView {
         
         dividerView.translatesAutoresizingMaskIntoConstraints = false
         dividerView.backgroundColor = .secondarySystemFill
+        
+        // Access CAlayer
+        layer.cornerRadius = 5
+        clipsToBounds = true
     }
     
     func layout() {
