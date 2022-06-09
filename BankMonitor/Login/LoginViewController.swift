@@ -70,7 +70,7 @@ extension LoginViewController {
         
         // Error Message
         NSLayoutConstraint.activate([
-            errorMessageLabel.topAnchor.constraint(equalToSystemSpacingBelow: loginView.bottomAnchor, multiplier: 2),
+            errorMessageLabel.topAnchor.constraint(equalToSystemSpacingBelow: signInButton.bottomAnchor, multiplier: 2),
             errorMessageLabel.leadingAnchor.constraint(equalTo: loginView.leadingAnchor),
             errorMessageLabel.trailingAnchor.constraint(equalTo: loginView.trailingAnchor)
         ])
@@ -83,11 +83,29 @@ extension LoginViewController {
         login()
     }
     
+    // Login functionality
     private func login() {
         guard let username = username, let password = password else {
             assertionFailure("Username / password should never be nil")
-            return 
+            return
         }
+        
+        if username.isEmpty || password.isEmpty {
+            configureView(withMessage: "Username / password cannot be blank")
+            return
+        }
+        
+        if username == "Adam" && password == "Januszewski" {
+            signInButton.configuration?.showsActivityIndicator = true
+        } else {
+            configureView(withMessage: "Incorrect credentials")
+        }
+    }
+    
+    // Shows popup message if textfields are empty
+    private func configureView(withMessage message: String) {
+        errorMessageLabel.isHidden = false
+        errorMessageLabel.text = message
     }
 }
 
